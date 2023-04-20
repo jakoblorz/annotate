@@ -54,7 +54,7 @@ func Test_newStructTagDefaulter(t *testing.T) {
 	for _, tt := range rootTests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := newStructTagDefaulter(tt.args.t); !compareReflectionMaps(got.fields, tt.wantFields) {
-				t.Errorf("newStructTagDefaulter() = %v, want %v", got.fields, tt.wantFields)
+				t.Errorf("newStructTagDefaulter() = %v, wantFields %v", got.fields, tt.wantFields)
 			}
 		})
 	}
@@ -96,13 +96,13 @@ func Test_newStructTagDefaulter(t *testing.T) {
 	for _, tt := range typeTests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := newStructTagDefaulter(tt.args.t); !compareReflectionMaps(got.fields, tt.wantFields) {
-				t.Errorf("newStructTagDefaulter() = %v, want %v", got.fields, tt.wantFields)
+				t.Errorf("newStructTagDefaulter() = %v, wantFields %v", got.fields, tt.wantFields)
 			}
 		})
 	}
 }
 
-func Test_structTagDefaulterImpl_ApplyReplacements(t *testing.T) {
+func Test_structTagDefaulterImpl_ApplyDefaults(t *testing.T) {
 
 	type basicStruct struct {
 		StringValue  string  `default:"default"`
@@ -141,9 +141,9 @@ func Test_structTagDefaulterImpl_ApplyReplacements(t *testing.T) {
 		s := structTagDefaulter.Get(removeIndirect(reflect.TypeOf(basicStruct{})))
 
 		got := basicStruct{}
-		s.ApplyReplacements(&got)
+		s.ApplyDefaults(&got)
 		if !reflect.DeepEqual(got, defaultValues) {
-			t.Errorf("ApplyReplacements() = %v, want %v", got, defaultValues)
+			t.Errorf("ApplyDefaults() = %v, wantFields %v", got, defaultValues)
 		}
 	})
 }
