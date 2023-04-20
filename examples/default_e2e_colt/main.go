@@ -25,16 +25,15 @@ type Repository struct {
 	colt.DocWithTimestamps `bson:",inline"`
 	Name                   string `json:"name" bson:"name"`
 
-	// Settings uses the Default generic type (which is based on annotate.D), which allows to define a default value
-	// for the type itself. In this example, we define a default value for the RepositorySettings type, which is a
+	// Settings uses the Default generic type (which is based on annotate.D), which automatically applies default value to
+	// itself. In this example, we define a default value for the RepositorySettings type, which is a
 	// struct with two fields. This is useful, because we don't have to set the default value for every field of the
 	// struct.
 	Settings Default[RepositorySettings] `json:"settings" bson:"settings"`
 
-	// RecentUpdateInfo uses the DefaultX generic type (which is based on annotate.DX), which allows to define a
-	// default value for the type itself. In this example, we define a default value for the RecentUpdateInfo type, which is the current
-	// timestamp. This is useful, because we don't have to define a default value for every field of the struct, but
-	// can define a default value for the struct itself.
+	// RecentUpdateInfo uses the DefaultX generic type (which is based on annotate.DX), which allows to customize
+	// the default behavior. In this example, we define a default value for the RecentUpdateInfo type, which contains
+	// the current timestamp. This value cannot be set as a tag, because it is not a constant value.
 	RecentUpdateInfo DefaultX[RecentUpdateInfo] `json:"recent_update_info" bson:"recent_update_info"`
 }
 
