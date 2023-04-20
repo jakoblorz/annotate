@@ -12,7 +12,9 @@ func removeIndirect(t reflect.Type) reflect.Type {
 	return t
 }
 
-type TypeCache[T any] interface{}
+type TypeCache[T any] interface {
+	Get(t reflect.Type) T
+}
 
 type typeCache[T any] struct {
 	sync.RWMutex
